@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Parse Code</title>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+<link href='https://fonts.googleapis.com/css?family=Roboto:100,200,300,400italic,400,500,500italic,700,700italic,900' rel='stylesheet' type='text/css'/>
+<style>
+body {
+  background-color:white;
+  margin:0;
+  padding:0;
+  color:#212121;font-family:Roboto,Arial,sans-serif;
+}
+a{text-decoration:none;color:#e8554e;font-weight:700}
+::selection{background:#e8554e;color:#fff}
+.checkbox{font:11px Tahoma,Verdana,Arial,Sans-Serif;line-height:1.6em;color:#eee;display:none}
+#codes{border:1px solid #ddd;width:100%;height:150px;display:block;background-color:#efefef;border-radius:3px;font:400 12px 'Courier New',Monospace;margin:0 0 10px;padding:5px;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
+#codes:active,#codes:focus{background-color:#fff;color:#000;border:1px solid #ccc;outline:0}
+.button-group{float:left;text-align:left;margin:-3px auto 0}
+button{cursor:pointer}
+.button-group span{font-family:Roboto,Arial,sans-serif;font-size:12px;vertical-align:2px;line-height:1;vertical-align:-1px;color:#555;display:inline;}
+#opt1,#opt2,#opt3,#opt4,#opt5{display:inline-block;vertical-align:middle;border:none;outline:0;margin:0 10px 0 0}
+#opt6,#opt7,#opt8,#opt9,#opt10,#opt11,#opt12,#opt13,#opt14,#opt15,#opt16,#opt17,#opt18,#opt19,#opt20{display:inline-block;vertical-align:middle;border:none;outline:0;margin:0}
+.checkbox span{font:14px Roboto,Arial,sans-serif;vertical-align:middle;line-height:1;color:#555;margin-right:10px}
+.btn,.btn:active{background-image:none}
+.btn,.parser{font-weight:400;padding:6px 12px;margin-bottom:5px;font-size:14px;line-height:1.42857143;text-align:center;white-space:nowrap;-ms-touch-action:manipulation;touch-action:manipulation;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid transparent;border-radius:4px}
+.btn:active:focus,.btn:focus,.parser:active:focus,.parser:focus{outline:0}
+.btn:focus,.btn:hover,.parser:focus,.parser:hover{color:#333;text-decoration:none;outline:0}
+.btn:active,.parser:active{outline:0;-webkit-box-shadow:inset 0 3px 5px rgba(0,0,0,.125);box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}
+.btn-primary,.parser{color:#fff!important;background-color:#337ab7;border-color:#2e6da4}
+.btn-primary:focus,.button-group button:disabled,.parser:focus{color:#fff;background-color:#286090;border-color:#122b40}
+.btn-primary:active,.btn-primary:hover,.parser:active,.parser:hover{color:#fff;background-color:#286090;border-color:#204d74}
+.btn-danger{color:#fff!important;background-color:#d9534f;border-color:#d43f3a}
+.btn-danger:focus{color:#fff;background-color:#c9302c;border-color:#761c19}
+.btn-danger:active,.btn-danger:hover{color:#fff;background-color:#c9302c;border-color:#ac2925}
+.btn-info{color:#fff!important;background-color:#5bc0de;border-color:#46b8da}
+.btn-info:focus{color:#fff;background-color:#31b0d5;border-color:#1b6d85}
+.btn-info:active,.btn-info:hover{color:#fff;background-color:#31b0d5;border-color:#269abc}
+.btn-xs{font-size:12px;line-height:1.5;border-radius:3px;padding:1px 5px}
+.clear{clear:both;display:block}
+.collapse{display:none}
+#parser{position:relative}
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.alert {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	position:absolute;
+	top: 10px;
+	right:10px;
+	min-width:230px;
+}
+button.close {
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    -webkit-appearance: none;
+	line-height: 1;
+}
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+}
+button.close:focus {
+	outline:none;
+}
+.close:hover{opacity:1!important}
+#btnInfo h4{margin:0}
+#button-link{display:none}
+</style>
+</head>
+<body>
+
+<div id='parser'>
+<textarea id='codes' placeholder='Write/paste the code or text here and click the appropriate button. To embed a comment, grab the DISQUS ID from the Disqus comment share share button.' spellcheck='false'></textarea>
+<div class='alert alert-success margin-bottom-20 collapse' id='btnInfo' role='alert'>
+        <button class='close close-copy' onclick='document.getElementById(&quot;btnInfo&quot;).style.display = &quot;none&quot;;cdClear();' type='button'><span aria-hidden='true'>&#215;</span></button>
+        <h4>Codes copied to clipboard!</h4>
+      </div>
+<span class='button-group'>
+<button class='btn btn-primary btn-xs' id='cvrt3' onclick='strongConvert();this.disabled = true;'>strong</button>
+<button class='btn btn-primary btn-xs' id='cvrt4' onclick='emConvert();this.disabled = true;'>em</button>
+<button class='btn btn-primary btn-xs' id='cvrt4' onclick='uConvert();this.disabled = true;'>u</button>
+<button class='btn btn-primary btn-xs' id='cvrt5' onclick='strikeConvert();this.disabled = true;'>strike</button>
+<button class='btn btn-primary btn-xs' id='cvrt7' onclick='preConvert();this.disabled = true;'>pre</button>
+<button class='btn btn-primary btn-xs' id='cvrt8' onclick='codeConvert();this.disabled = true;'>code</button>
+<button class='btn btn-primary btn-xs' id='cvrt9' onclick='precodeConvert();this.disabled = true;'>pre code</button>
+<button class='btn btn-primary btn-xs' id='cvrt10' onclick='spoilerConvert();this.disabled = true;'>spoiler</button><br/>
+<button class='btn btn-primary btn-xs' id='cvrt11' onclick='embedConvert();this.disabled = true;'>embed</button> <span>How to get DISQUS ID - <a href='https://3.bp.blogspot.com/-5wJN6R18cZs/V8LMLmATPCI/AAAAAAAAnrk/j6xr9K2DPDMX7RNpb5qXttuHUwKQ7QK-wCLcB/s1600/Animation2.gif' rel='nofollow' target='_blank' title='Look here'>Look here</a></span><br/>
+<button class='btn button-link btn-xs btn-info' id='button-link' data-clipboard-action='copy' data-clipboard-target='#codes' type='submit'>Copy codes to clipboard!</button> <button class='btn btn-danger btn-xs' onclick='cdClear();'>Clear</button> 
+</span>
+<span class='checkbox'>
+  <input checked='' id='opt1' type='checkbox'/>
+  <input checked='' id='opt2' type='checkbox'/>
+  <input checked='' id='opt3' type='checkbox'/>
+  <input checked='' id='opt4' type='checkbox'/>
+  <input checked='' id='opt5' type='checkbox'/><br/>
+  <input checked='' id='opt6' type='checkbox'/> <span>strong</span>
+  <input checked='' id='opt7' type='checkbox'/> <span>em</span>
+  <input checked='' id='opt8' type='checkbox'/> <span>u</span>
+  <input checked='' id='opt9' type='checkbox'/> <span>strike</span><br/>
+  <input checked='' id='opt10' type='checkbox'/> <span>pre</span>
+  <input checked='' id='opt11' type='checkbox'/> <span>code</span>
+  <input checked='' id='opt12' type='checkbox'/> <span>pre code</span>
+  <input checked='' id='opt13' type='checkbox'/> <span>spoiler</span><br/>
+  <input checked='' id='opt20' type='checkbox'/> <span>embed</span>
+  </span>
+  <div class="clear"></div>
+</div>
+<script>
+function cdClear() {
+  var wtarea = document.getElementById('codes');
+  wtarea.value = '';
+  wtarea.focus();
+  var clears = document.querySelectorAll('#cvrt3, #cvrt4, #cvrt5, #cvrt6, #cvrt7, #cvrt8, #cvrt9, #cvrt10, #cvrt11')
+  for (var i = 0; i < clears.length; i++)
+{
+  clears[i].disabled = false,document.getElementById("btnInfo")
+        .style.display = "none",document.getElementById("button-link")
+        .style.display = "none"
+}
+}
+
+function preConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt1 = document.getElementById('opt1'),
+    opt2 = document.getElementById('opt2'),
+    opt3 = document.getElementById('opt3'),
+    opt4 = document.getElementById('opt4'),
+    opt5 = document.getElementById('opt5'),
+    opt10 = document.getElementById('opt10');
+  cv = cv.replace(/\t/g, "    ");
+ if (opt10.checked) { if (opt1.checked) cv = cv.replace(/&/g, "&amp;");
+  if (opt2.checked) cv = cv.replace(/'/g, "&#039;");
+  if (opt3.checked) cv = cv.replace(/"/g, "&quot;");
+  if (opt4.checked) cv = cv.replace(/</g, "&lt;");
+  if (opt5.checked) cv = cv.replace(/>/g, "&gt;");
+  cv = cv.replace(/^/, "<pre>");
+      cv = cv.replace(/$/, "</pre>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+function codeConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt1 = document.getElementById('opt1'),
+    opt2 = document.getElementById('opt2'),
+    opt3 = document.getElementById('opt3'),
+    opt4 = document.getElementById('opt4'),
+    opt5 = document.getElementById('opt5'),
+    opt11 = document.getElementById('opt11');
+  cv = cv.replace(/\t/g, "    ");
+  if (opt11.checked) { if (opt1.checked) cv = cv.replace(/&/g, "&amp;");
+  if (opt2.checked) cv = cv.replace(/'/g, "&#039;");
+  if (opt3.checked) cv = cv.replace(/"/g, "&quot;");
+  if (opt4.checked) cv = cv.replace(/</g, "&lt;");
+  if (opt5.checked) cv = cv.replace(/>/g, "&gt;");
+  cv = cv.replace(/^/, "<code>");
+      cv = cv.replace(/$/, "</code>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+function precodeConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt1 = document.getElementById('opt1'),
+    opt2 = document.getElementById('opt2'),
+    opt3 = document.getElementById('opt3'),
+    opt4 = document.getElementById('opt4'),
+    opt5 = document.getElementById('opt5'),
+    opt12 = document.getElementById('opt12');
+  cv = cv.replace(/\t/g, "    ");
+  if (opt12.checked) { if (opt1.checked) cv = cv.replace(/&/g, "&amp;");
+  if (opt2.checked) cv = cv.replace(/'/g, "&#039;");
+  if (opt3.checked) cv = cv.replace(/"/g, "&quot;");
+  if (opt4.checked) cv = cv.replace(/</g, "&lt;");
+  if (opt5.checked) cv = cv.replace(/>/g, "&gt;");
+  cv = cv.replace(/^/, "<pre><code>");
+      cv = cv.replace(/$/, "</code></pre>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+function spoilerConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt13 = document.getElementById('opt13')
+  cv = cv.replace(/\t/g, "    ");
+    if (opt13.checked) {cv = cv.replace(/^/, "<spoiler>");
+      cv = cv.replace(/$/, "</spoiler>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+function strongConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt6 = document.getElementById('opt6')
+  cv = cv.replace(/\t/g, "    ");
+    if (opt6.checked) {cv = cv.replace(/^/, "<strong>");
+      cv = cv.replace(/$/, "</strong>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+function emConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt7 = document.getElementById('opt7')
+  cv = cv.replace(/\t/g, "    ");
+    if (opt7.checked) {cv = cv.replace(/^/, "<em>");
+      cv = cv.replace(/$/, "</em>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+
+function uConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt8 = document.getElementById('opt8')
+  cv = cv.replace(/\t/g, "    ");
+    if (opt8.checked) {cv = cv.replace(/^/, "<u>");
+      cv = cv.replace(/$/, "</u>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+function strikeConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt9 = document.getElementById('opt9')
+  cv = cv.replace(/\t/g, "    ");
+    if (opt9.checked) {cv = cv.replace(/^/, "<strike>");
+      cv = cv.replace(/$/, "</strike>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+function embedConvert() {
+var ctarea = document.getElementById('codes'),
+    cv = ctarea.value,
+    opt20 = document.getElementById('opt20')
+  cv = cv.replace(/\t/g, "    ");
+    if (opt20.checked){ cv = cv.replace(/^/, "<iframe src=\"https://embed.disqus.com/p/");
+      cv = cv.replace(/$/, "\" style=\"border:0;width:100%;height:300px;\" seamless=\"seamless\" scrolling=\"no\" allowtransparency=\"true\"><\/iframe>");
+  ctarea.value = cv;
+  ctarea.focus();
+  document.getElementById("button-link")
+        .style.display = "inline-block"}
+};
+</script>
+<script src='https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.16/dist/clipboard.min.js'></script>
+<script>
+//<![CDATA[
+var clipboard = new Clipboard(".button-link");
+clipboard.on("success", function (o) {
+    console.log(o), document.getElementById("btnInfo")
+        .style.display = "block", document.getElementById("codes")
+        .value = ""
+}), clipboard.on("error", function (o) {
+    console.log(o)
+});
+//]]>
+</script>
+</body>
+</html>
