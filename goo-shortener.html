@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>&lt;!DOCTYPE html&gt;<br />
+  &lt;html&gt;<br />
+  &lt;head&gt;<br />
+  &lt;meta charset=&quot;utf-8&quot;&gt;<br />
+  &lt;title&gt;Parse Code&lt;/title&gt;<br />
+  &lt;meta content='width=device-width, initial-scale=1' name='viewport'&gt;<br />
+  &lt;script src=&quot;https://cdn.jsdelivr.net/clipboard.js/1.5.13/clipboard.min.js&quot;&gt;&lt;/script&gt;<br />
+  &lt;link href=&quot;https://fonts.googleapis.com/css?family=Roboto:300,300i,500,700,500i,900&quot;&gt;<br />
+  &lt;style&gt;<br />
+  body{margin:0;padding:0;font-family:Roboto,Arial,sans-serif}<br />
+  .shorten-box{font-size:100%;font-weight:500;color:#666!important;margin:0}<br />
+  #output{display:inline-block;}<br />
+  .shorten-text{display:inline-block;color:#141924;margin-right:5px;border:1px solid transparent;line-height:1;padding:5px 0;font-family:Roboto,Arial,sans-serif;font-weight:700}<br />
+  #foo{display:inline-block;background:#f8f8f8;border:1px solid #d5d5d5;border-radius:3px;padding:5px 8px;margin:0;box-shadow: inset 0px 0px 1px rgba(0,0,0,.08);font-family:Consolas,Monaco,'Andale Mono',monospace;font-size:14px;white-space:initial;word-spacing:normal;word-break:normal;hyphens:none;color:#000;cursor:pointer;height: 24px;<br />
+  line-height: 24px;<br />
+  padding: 0 5px;}<br />
+  .clear{clear:both}<br />
+  #output{position:relative}<br />
+  #output .btn {<br />
+  -webkit-transition: opacity 0.3s ease-in-out;<br />
+  -o-transition: opacity 0.3s ease-in-out;<br />
+  transition: opacity 0.3s ease-in-out;<br />
+  opacity: 0;<br />
+  position: absolute;<br />
+  right:0;<br />
+  top: 0;<br />
+  }</p>
+<p>button.btn {<br />
+  position: relative;<br />
+  display: inline-block;<br />
+  font-size: 13px;<br />
+  font-weight: bold;<br />
+  line-height: 20px;<br />
+  color: #333;<br />
+  white-space: nowrap;<br />
+  vertical-align: middle;<br />
+  cursor: pointer;<br />
+  background-color: #eee;<br />
+  background-image: linear-gradient(#fcfcfc, #eee);<br />
+  border: 1px solid #d5d5d5;<br />
+  border-radius:0 3px 3px 0;<br />
+  -webkit-user-select: none;<br />
+  -moz-user-select: none;<br />
+  -ms-user-select: none;<br />
+  user-select: none;<br />
+  -webkit-appearance: none;<br />
+  height: 26px;<br />
+  line-height: 26px;<br />
+  padding: 0 5px;<br />
+  }</p>
+<p>img.clippy {<br />
+  position: relative;<br />
+  vertical-align: middle;<br />
+  padding: 0;<br />
+  background: none;<br />
+  border: none;<br />
+  -moz-box-shadow: 0;<br />
+  -webkit-box-shadow: 0;<br />
+  box-shadow: 0;<br />
+  }</p>
+<p>#output:hover .btn {<br />
+  opacity: 1;<br />
+  }</p>
+<p>.tooltipped {<br />
+  position: relative<br />
+  }</p>
+<p>.tooltipped:after {<br />
+  position: absolute;<br />
+  z-index: 1000000;<br />
+  display: none;<br />
+  padding: 5px 8px;<br />
+  font: normal normal 11px/1.5 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;<br />
+  color: #fff;<br />
+  text-align: center;<br />
+  text-decoration: none;<br />
+  text-shadow: none;<br />
+  text-transform: none;<br />
+  letter-spacing: normal;<br />
+  word-wrap: break-word;<br />
+  white-space: pre;<br />
+  pointer-events: none;<br />
+  content: attr(aria-label);<br />
+  background: rgba(0,0,0, 0.8);<br />
+  border-radius: 3px;<br />
+  -webkit-font-smoothing: subpixel-antialiased<br />
+  }</p>
+<p>.tooltipped:before {<br />
+  position: absolute;<br />
+  z-index: 1000001;<br />
+  display: none;<br />
+  width: 0;<br />
+  height: 0;<br />
+  color: rgba(0,0,0, 0.8);<br />
+  pointer-events: none;<br />
+  content: &quot;&quot;;<br />
+  border: 5px solid transparent<br />
+  }</p>
+<p>.tooltipped:hover:before,<br />
+  .tooltipped:hover:after,<br />
+  .tooltipped:active:before,<br />
+  .tooltipped:active:after,<br />
+  .tooltipped:focus:before,<br />
+  .tooltipped:focus:after {<br />
+  display: inline-block;<br />
+  text-decoration: none<br />
+  }</p>
+<p>.tooltipped-w:after {<br />
+  right: 100%;<br />
+  bottom: 50%;<br />
+  margin-right: 5px;<br />
+  -webkit-transform: translateY(50%);<br />
+  -ms-transform: translateY(50%);<br />
+  transform: translateY(50%)<br />
+  }</p>
+<p>.tooltipped-w:before {<br />
+  top: 50%;<br />
+  bottom: 50%;<br />
+  left: -5px;<br />
+  margin-top: -5px;<br />
+  border-left-color: rgba(0,0,0, 0.8)<br />
+  }</p>
+<p>.tooltipped-w:after {<br />
+  right: 100%;<br />
+  bottom: 50%;<br />
+  margin-right: 5px;<br />
+  -webkit-transform: translateY(50%);<br />
+  -ms-transform: translateY(50%);<br />
+  transform: translateY(50%)<br />
+  }<br />
+  button.btn:focus,button.btn:active{outline:0}<br />
+  &lt;/style&gt;</p>
+<p>&lt;script&gt;<br />
+  var urls = getQueryVariable(&quot;url&quot;);<br />
+  function getQueryVariable(variable) {<br />
+  var query = window.location.search.substring(1);<br />
+  var vars = query.split(&quot;&amp;&quot;);<br />
+  for (var i=0;i&lt;vars.length;i++) {<br />
+  var pair = vars[i].split(&quot;=&quot;);<br />
+  if(pair[0] == variable){return pair[1];}<br />
+  }<br />
+  return(false);<br />
+  }<br />
+  &lt;/script&gt;<br />
+  &lt;/head&gt;<br />
+  &lt;body&gt;<br />
+  &lt;div class='shorten-box'&gt;<br />
+  &lt;script&gt;document.write('&lt;input value=&quot;'+ urls +'&quot; id=&quot;longurl&quot; name=&quot;url&quot; type=&quot;hidden&quot;/&gt; '); &lt;/script&gt;<br />
+  &lt;div id='output'&gt;&lt;/div&gt;<br />
+  &lt;div class='clear'&gt;&lt;/div&gt;<br />
+  &lt;/div&gt;<br />
+</p>
+<p>&lt;script&gt;<br />
+  (function() { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/client.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();</p>
+<p>function makeShort() {<br />
+  var longUrl = document.getElementById(&quot;longurl&quot;).value;<br />
+  var request = gapi.client.urlshortener.url.insert({<br />
+  'resource': {<br />
+  'longUrl': longUrl<br />
+  }<br />
+  });<br />
+  request.execute(function(response) {<br />
+  if (response.id != null) {<br />
+  str = &quot;&quot;;<br />
+  str += &quot;&lt;button class='btn' data-clipboard-snippet&gt;&lt;img class='clippy' width='13' src='https://firebasestorage.googleapis.com/v0/b/kompijs.appspot.com/o/image%2Fclippy.svg?alt=media&amp;token=ded490f4-41c8-4fb6-a52a-0f078167d21b' alt='Copy to clipboard'&gt;&lt;/button&gt;&lt;div id='foo'&gt;&quot;+ response.id +&quot;&lt;/div&gt;&quot;;<br />
+  document.getElementById(&quot;output&quot;).innerHTML = str;<br />
+  } else {<br />
+  alert(&quot;ERROR: creating short url \n&quot; + response.error);<br />
+  }<br />
+  });<br />
+  }</p>
+<p>function load() {<br />
+  gapi.client.setApiKey('AIzaSyDzPdF0irkf9tCBYDpwgom7ldQsIGZwC3M');<br />
+  gapi.client.load('urlshortener', 'v1', function() {<br />
+  document.getElementById(&quot;output&quot;).innerHTML = makeShort();<br />
+  });<br />
+  }<br />
+  window.onload = load;<br />
+  &lt;/script&gt;<br />
+  &lt;script&gt;<br />
+  var clipboard = new Clipboard('.btn', {<br />
+  target: function() {<br />
+  return document.querySelector('div#foo');<br />
+  }<br />
+  });</p>
+<p> clipboard.on('success', function(e) {<br />
+  console.log(e);<br />
+  });</p>
+<p> clipboard.on('error', function(e) {<br />
+  console.log(e);<br />
+  });</p>
+<p>var snippets = document.querySelectorAll('div#foo');<br />
+  var clipboardSnippets = new Clipboard('[data-clipboard-snippet]', {<br />
+  target: function(trigger) {<br />
+  return trigger.nextElementSibling;<br />
+  }<br />
+  });<br />
+  clipboardSnippets.on('success', function(e) {<br />
+  e.clearSelection();<br />
+  showTooltip(e.trigger, 'Copied!');<br />
+  });<br />
+  clipboardSnippets.on('error', function(e) {<br />
+  showTooltip(e.trigger, fallbackMessage(e.action));<br />
+  });</p>
+<p>var btns = document.querySelectorAll('.btn');<br />
+  for (var i = 0; i &lt; btns.length; i++) {<br />
+  btns[i].addEventListener('mouseleave', function(e) {<br />
+  e.currentTarget.setAttribute('class', 'btn');<br />
+  e.currentTarget.removeAttribute('aria-label');<br />
+  });<br />
+  }</p>
+<p>function showTooltip(elem, msg) {<br />
+  elem.setAttribute('class', 'btn tooltipped tooltipped-w');<br />
+  elem.setAttribute('aria-label', msg);<br />
+  }</p>
+<p>function fallbackMessage(action) {<br />
+  var actionMsg = '';<br />
+  var actionKey = (action === 'cut' ? 'X' : 'C');<br />
+  if (/iPhone|iPad/i.test(navigator.userAgent)) {<br />
+  actionMsg = 'No support :(';<br />
+  } else if (/Mac/i.test(navigator.userAgent)) {<br />
+  actionMsg = 'Press ?-' + actionKey + ' to ' + action;<br />
+  } else {<br />
+  actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;<br />
+  }<br />
+  return actionMsg;<br />
+  }<br />
+  &lt;/script&gt;<br />
+  &lt;/body&gt;<br />
+  &lt;/html&gt;</p>
+</body>
+</html>
