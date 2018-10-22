@@ -39,16 +39,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Roboto","Segoe UI","Oxygen-Sa
 #table-outer{padding:0;}
 }
 </style>
-<div id="table-outer">
-<table><tbody>
 <label for="feed-order">Sort by:</label> <select id="feed-order"> <option selected="" value="published">Latest mods</option> <option value="updated">The last mod is updated</option> </select>
 <label for="label-sorter">Category:</label> <select disabled="" id="label-sorter"> <option selected="">Loading....</option> </select>
-<tr>                 <td><label for="feed-q">Keywords:</label></td> <td><form id="post-searcher">
+<label for="feed-q">Keywords:</label> <form id="post-searcher">
 <input id="feed-q" type="text" placeholder="Type and press ENTER"/>
 </form>
-</td></tr>
-</tbody></table>
-</div>
 <header id="result-desc"></header>
 <ul id="feed-container"></ul>
 <div id="feed-nav">
