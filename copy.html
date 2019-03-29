@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style> 
+/* so button can go to edge */
+body {
+  margin: 0;
+  font-family:-apple-system,BlinkMacSystemFont,"Roboto","Segoe UI","Oxygen-Sans","Ubuntu","Cantarell","Helvetica Neue",sans-serif;
+  text-align: center;
+  padding-top: 20px
+}
+/* common styles for button */
+button#copy{
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 14px;
+  font-weight:500;
+  line-height: 1.2;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: #555;
+  padding: 0 10px 0 8px;
+  text-align:center;
+  color: #fff;
+  display: inline-block;
+}
+/* cursor/size for within iframe */
+button#copy {
+  cursor: copy;
+  height: 30px;
+}
+/* custom focus effect (outline would be cropped) */
+button#copy:active,
+button#copy:focus {
+  outline:0;
+  border-color:yellow;
+}
+#copy svg{width:18px;height:18px;vertical-align:middle;margin-right:8px}
+#copy svg path{fill:#fff}
+.link{display:block;margin:20px auto 0;text-align:center;border:0;width:100%;padding:0 20px;font-size:18px;}
+.link:focus,.close:focus{outline:0}
+*{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+.close{background:0;border:1px solid #F03;border-radius:3px;padding:1px 4px;font-size:12px;color:#F03;margin:20px auto 0;line-height:1;cursor:pointer;display:none;}
+  </style>
+</head>
+<body onload="myFunction()">
+<button id="copy"><svg width="24px" height="24px" viewBox="0 0 24 24"><path fill="#000000" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></svg>Click to copy link!</button>
+<input class="link" type="text" id="_i"/>
+<button class="close" id="close" onclick="closeFunction()">Close</button>
+<script>
+/*
+  When the copy button is pressed, we:
+  * decode the text from the hash, as that's how the text is passed to us
+  * place it in our hidden text element,
+  * show and focus the input, so the browser lets us copy it
+  * call `execCommand('copy')`, to perform the actual copy
+  * before hiding it again.
+  See: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
+ */
+copy.onclick = function() {
+  _i.value = window.decodeURIComponent(window.location.hash.substr(1));
+  _i.hidden = false;
+  _i.select();
+  _i.focus();
+  document.execCommand('copy');
+  alert("The link copied!");
+  document.getElementById("close").style.display="inline-block";
+};
+function myFunction() {
+	var d = document.getElementById("_i");
+ d.value = window.decodeURIComponent(window.location.hash.substr(1));
+}
+function closeFunction() {
+window.open('', '_self', ''); 
+window.close();
+}
+</script>
+</body>
